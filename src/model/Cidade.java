@@ -5,20 +5,39 @@
  */
 package model;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
  * @author asus
  */
-public class Cidade {
-    
+@Entity
+public class Cidade implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long id_estado;
+    private Long idEstado;
     private String nome;
     private Integer populacao;
     private String clima;
     private Float gastos;
 
     public Cidade() {
+    }
+
+    public Cidade(Long id, Long idEstado, String nome, Integer populacao, String clima, Float gastos) {
+        this.id = id;
+        this.idEstado = idEstado;
+        this.nome = nome;
+        this.populacao = populacao;
+        this.clima = clima;
+        this.gastos = gastos;
     }
 
     public Long getId() {
@@ -29,12 +48,12 @@ public class Cidade {
         this.id = id;
     }
 
-    public Long getId_estado() {
-        return id_estado;
+    public Long getIdEstado() {
+        return idEstado;
     }
 
-    public void setId_estado(Long id_estado) {
-        this.id_estado = id_estado;
+    public void setIdEstado(Long idEstado) {
+        this.idEstado = idEstado;
     }
 
     public String getNome() {
@@ -68,4 +87,30 @@ public class Cidade {
     public void setGastos(Float gastos) {
         this.gastos = gastos;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Cidade)) {
+            return false;
+        }
+        Cidade other = (Cidade) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Cidade1{" + "id=" + id + ", idEstado=" + idEstado + ", nome=" + nome + ", populacao=" + populacao + ", clima=" + clima + ", gastos=" + gastos + '}';
+    }
+    
 }
