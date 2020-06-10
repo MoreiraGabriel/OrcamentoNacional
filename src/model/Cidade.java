@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -20,20 +22,22 @@ public class Cidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long idEstado;
     private String nome;
     private Integer populacao;
     private String clima;
     private Float gastos;
+    @ManyToOne
+    @JoinColumn(name = "estado")
+    private Estado estado;
 
     public Cidade() {
     }
 
-    public Cidade(Long id, Long idEstado, String nome, Integer populacao, String clima, Float gastos) {
+    public Cidade(Long id, Estado estado, String nome, Integer populacao, String clima, Float gastos) {
         this.id = id;
-        this.idEstado = idEstado;
+        this.estado = estado;
         this.nome = nome;
         this.populacao = populacao;
         this.clima = clima;
@@ -48,12 +52,12 @@ public class Cidade implements Serializable {
         this.id = id;
     }
 
-    public Long getIdEstado() {
-        return idEstado;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setIdEstado(Long idEstado) {
-        this.idEstado = idEstado;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     public String getNome() {
@@ -110,7 +114,6 @@ public class Cidade implements Serializable {
 
     @Override
     public String toString() {
-        return "Cidade1{" + "id=" + id + ", idEstado=" + idEstado + ", nome=" + nome + ", populacao=" + populacao + ", clima=" + clima + ", gastos=" + gastos + '}';
+        return "Cidade{" + "id=" + id + ", nome=" + nome + ", populacao=" + populacao + ", clima=" + clima + ", gastos=" + gastos + ", estado=" + estado.getNome() +'}';
     }
-    
 }

@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -21,26 +22,27 @@ public class Estado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String sigla;
     private Boolean distritoFederal;
-    private Float orçamentoTotal;
+    private Float orcamentoTotal;
     private Float gastosTotais;
-    private List<Long> idCidades;
+    @OneToMany(mappedBy = "estado")
+    private List<Cidade> cidades;
 
     public Estado() {
     }
 
-    public Estado(Long id, String nome, String sigla, Boolean distritoFederal, Float orçamentoTotal, Float gastosTotais, List<Long> idCidades) {
+    public Estado(Long id, String nome, String sigla, Boolean distritoFederal, Float orcamentoTotal, Float gastosTotais, List<Cidade> cidades) {
         this.id = id;
         this.nome = nome;
         this.sigla = sigla;
         this.distritoFederal = distritoFederal;
-        this.orçamentoTotal = orçamentoTotal;
+        this.orcamentoTotal = orcamentoTotal;
         this.gastosTotais = gastosTotais;
-        this.idCidades = idCidades;
+        this.cidades = cidades;
     }
 
     public Long getId() {
@@ -75,12 +77,12 @@ public class Estado implements Serializable {
         this.distritoFederal = distritoFederal;
     }
 
-    public Float getOrçamentoTotal() {
-        return orçamentoTotal;
+    public Float getOrcamentoTotal() {
+        return orcamentoTotal;
     }
 
-    public void setOrçamentoTotal(Float orçamentoTotal) {
-        this.orçamentoTotal = orçamentoTotal;
+    public void setOrcamentoTotal(Float orcamentoTotal) {
+        this.orcamentoTotal = orcamentoTotal;
     }
 
     public Float getGastosTotais() {
@@ -91,12 +93,12 @@ public class Estado implements Serializable {
         this.gastosTotais = gastosTotais;
     }
 
-    public List<Long> getIdCidades() {
-        return idCidades;
+    public List<Cidade> getIdCidades() {
+        return cidades;
     }
 
-    public void setIdCidades(List<Long> idCidades) {
-        this.idCidades = idCidades;
+    public void setIdCidades(List<Cidade> cidades) {
+        this.cidades = cidades;
     }
 
     @Override
@@ -121,6 +123,6 @@ public class Estado implements Serializable {
 
     @Override
     public String toString() {
-        return "Estado{" + "id=" + id + ", nome=" + nome + ", sigla=" + sigla + ", distritoFederal=" + distritoFederal + ", or\u00e7amentoTotal=" + orçamentoTotal + ", gastosTotais=" + gastosTotais + ", idCidades=" + idCidades + '}';
+        return "Estado{" + "id=" + id + ", nome=" + nome + ", sigla=" + sigla + ", distritoFederal=" + distritoFederal + ", orcamentoTotal=" + orcamentoTotal + ", gastosTotais=" + gastosTotais + '}';
     }
 }
