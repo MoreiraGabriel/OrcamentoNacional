@@ -23,11 +23,13 @@ public class OrçamentoNacional {
     public static void main(String[] args) {
         EstadoDao estadoDao = new EstadoDao();
         /*Estado estado = new Estado();  
+        //estado.setId(1L);
         estado.setNome("Minas Gerais");
         estado.setSigla("MG");
         estado.setDistritoFederal(false);
         estado.setGastosTotais(1000.00F);
         estado.setOrcamentoTotal(2000.00F);
+
         estadoDao.persist(estado);*/
         
         CidadeDao cidadeDao = new CidadeDao();

@@ -29,7 +29,7 @@ public class Cidade implements Serializable {
     private String clima;
     private Float gastos;
     @ManyToOne
-    @JoinColumn(name = "estado")
+    @JoinColumn(name = "id_estado")
     private Estado estado;
 
     public Cidade() {
