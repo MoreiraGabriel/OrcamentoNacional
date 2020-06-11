@@ -10,31 +10,29 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import model.Cidade;
-import model.Estado;
 
 /**
  *
  * @author asus
  */
 public class CidadeDao {
-
-    EstadoDao estadoDao = new EstadoDao();
     
-    public void persist(Cidade cidade) {
+    public Boolean persist(Cidade cidade) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("OrcamentoNacionalPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Estado estado = estadoDao.findById(cidade.getEstado().getId());
-        cidade.setEstado(estado);
+       
         try {
             em.persist(cidade);
             em.getTransaction().commit();
+            return true;
         } catch (Exception e) {
-            System.out.println("Erro ao adicionar cidade.");
+            System.out.println("Erro ao adicionar cidade." + cidade.getNome());
             em.getTransaction().rollback();
         } finally {
             em.close();
         }
+        return false;
     }
     
     public Cidade findById(Long id){
@@ -84,7 +82,7 @@ public class CidadeDao {
         return lista;
     }
     
-    public void remove(Long id){
+    public Boolean remove(Long id){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("OrcamentoNacionalPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -92,11 +90,31 @@ public class CidadeDao {
         try {
            em.remove(em.getReference(Cidade.class, id));
            em.getTransaction().commit();
+           return true;
         } catch (Exception e) {
             System.out.println("Erro ao remover cidade.");
             em.getTransaction().rollback();
         } finally {
             em.close();
         }
+        return false;
     } 
+    
+    public List<Cidade> findCidadePorEstado(Long idEstado){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("OrcamentoNacionalPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        
+        List<Cidade> lista = em.createQuery("Select a From Cidade a Where Id_estado = "+ idEstado +"", Cidade.class).getResultList();
+        return lista;
+    }
+    
+    public List<Cidade> findCidadePorClima(String clima){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("OrcamentoNacionalPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        
+        List<Cidade> lista = em.createQuery("Select a From Cidade a Where Clima = '"+ clima +"'", Cidade.class).getResultList();
+        return lista;
+    }
 }
