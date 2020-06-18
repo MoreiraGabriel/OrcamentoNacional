@@ -78,7 +78,7 @@ public class CidadeDao {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         
-        List<Cidade> lista = em.createQuery("Select a From Cidade a", Cidade.class).getResultList();
+        List<Cidade> lista = em.createQuery("Select a From Cidade a Order By Nome", Cidade.class).getResultList();
         return lista;
     }
     

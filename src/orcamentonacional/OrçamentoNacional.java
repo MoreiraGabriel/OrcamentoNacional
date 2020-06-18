@@ -7,10 +7,10 @@ package orcamentonacional;
 
 import dao.CidadeDao;
 import dao.EstadoDao;
-import java.util.List;
 import model.Cidade;
 import model.Estado;
 import servico.CidadeServiceImpl;
+import servico.EstadoServiceImpl;
 
 /**
  *
@@ -22,37 +22,35 @@ public class OrçamentoNacional {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        CidadeServiceImpl service = new CidadeServiceImpl();
-        
-        EstadoDao estadoDao = new EstadoDao();
-        Estado estado = new Estado();  
-        estado.setId(1L);
-        estado.setNome("Minas Gerais");
-        estado.setSigla("MG");
-        estado.setDistritoFederal(false);
-        estado.setGastosTotais(1000.00F);
-        estado.setOrcamentoTotal(2000.00F);
+        CidadeServiceImpl serviceCidade = new CidadeServiceImpl();
+        EstadoServiceImpl serviceEstado = new EstadoServiceImpl();
 
-        //estadoDao.persist(estado);
-        
-        CidadeDao cidadeDao = new CidadeDao();
+        Estado estado = new Estado();  
+        estado.setId(3L);
+        estado.setNome("Rio de Janeiro");
+        estado.setSigla("RJ");
+        estado.setDistritoFederal(false);
+        estado.setGastosTotais(7000.00F);
+        estado.setOrcamentoTotal(6000.00F);
+
+        //serviceEstado.cadastrarEstado(estado);
+
         Cidade cidade = new Cidade();
-        cidade.setNome("Juiz de Fora");
-        cidade.setClima("Tropical");
-        cidade.setPopulacao(35000);
-        cidade.setGastos(1000F);
+        cidade.setNome("São Paulo");
+        cidade.setClima("Subtropical");
+        cidade.setPopulacao(60000);
+        cidade.setGastos(5000F);
         cidade.setEstado(estado);
-        //cidadeDao.persist(cidade);
         
         Cidade leopoldina = new Cidade();
-        cidade.setNome("Leopoldina");
-        cidade.setClima("Equatorial");
-        cidade.setPopulacao(25000);
-        cidade.setGastos(1000F);
-        cidade.setEstado(estado);
+        leopoldina.setNome("Leopoldina");
+        leopoldina.setClima("Equatorial");
+        leopoldina.setPopulacao(25000);
+        leopoldina.setGastos(1000F);
+        leopoldina.setEstado(estado);
         
-        /*service.cadastrarCidade(cidade);
-        service.cadastrarCidade(leopoldina);*/
+        //serviceCidade.cadastrarCidade(cidade);
+        //serviceCidade.cadastrarCidade(leopoldina);
         
         /*List<Cidade> cidades = cidadeDao.findAll();
         List<Estado> estados = estadoDao.findAll();
@@ -63,7 +61,9 @@ public class OrçamentoNacional {
         //System.out.println(cidadeEstado);
         
    
-        System.out.println(service.obterCidadePorClima("Tropical"));
+        //System.out.println(serviceEstado.ObterEstadosDevedores());
+        serviceEstado.atualizarGastosTotais(3L);
+        System.out.println(serviceEstado.obterGastosTotais(3L));
     }
     
 }

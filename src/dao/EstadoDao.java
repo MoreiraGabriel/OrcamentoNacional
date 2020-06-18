@@ -53,6 +53,15 @@ public class EstadoDao {
         return estado;
     }
     
+    public List<Estado> findEstadoDevedor(){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("OrcamentoNacionalPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        
+        List<Estado> lista = em.createQuery("Select a From Estado a Where orcamentototal < gastostotais", Estado.class).getResultList();
+        return lista;
+    }
+    
     public Estado update(Estado estado){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("OrcamentoNacionalPU");
         EntityManager em = emf.createEntityManager();
@@ -94,5 +103,39 @@ public class EstadoDao {
         } finally {
             em.close();
         }
-   } 
+    } 
+    
+    public Double obterGastosTotais(Long id){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("OrcamentoNacionalPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        List<Double> result = null;
+        
+        try {
+            result = em.createQuery("Select Sum(gastos) from Cidade a Where Id_estado = " + id).getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro ao obter gastos totais.");
+        } finally{
+            em.close();
+        }
+        
+        return result.get(0);
+    }
+    
+    public void atualizarGastos(Long idEstado){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("OrcamentoNacionalPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        
+        try {
+            List result = em.createQuery("Update Estado Set Gastostotais = (Select Sum(gastos) From Cidade Where Id_estado = "+idEstado+") Where Id = "+idEstado+"").getResultList();
+            System.out.println(result);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            System.out.println("Erro ao atualizar gastos totais.");
+        } finally{
+            em.close();
+        }
+    }
 }

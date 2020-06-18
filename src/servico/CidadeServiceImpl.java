@@ -22,13 +22,18 @@ public class CidadeServiceImpl {
     
     public Boolean cadastrarCidade(Cidade cidade){
         Estado estado = serviceEstado.obterPorId(cidade.getEstado().getId());
-        Boolean validarOrcamento = validarOrcamentoEstado(estado);
+        Boolean validarOrcamento = serviceEstado.validarOrcamentoEstado(estado);
         Boolean validarNomeCidade = validarNomeCidade(cidade);
         
         if(validarOrcamento && validarNomeCidade == true){
            dao.persist(cidade);
            System.out.println("Cidade cadastrada");
+           serviceEstado.atualizarGastosTotais(estado.getId());
            return true;           
+        } else{
+            atualizarCidade(cidade);
+            serviceEstado.atualizarGastosTotais(estado.getId());
+            System.out.println("Cidade já cadastrada anteriormente, gastos da cidade atualizados.");
         }      
         System.out.println("Erro ao cadastrar cidade " + cidade.getNome());
         return false;
@@ -51,7 +56,7 @@ public class CidadeServiceImpl {
     }
     
     public Boolean atualizarCidade(Cidade cidade){
-        if(cidade.getEstado().getId() != null){
+        if(cidade.getEstado().getId() != null && cidade.getId() != null){
             dao.update(cidade);
             return true;
         } 
@@ -63,14 +68,9 @@ public class CidadeServiceImpl {
         return dao.remove(id);
     }
     
-    private Boolean validarOrcamentoEstado(Estado estado){
-        System.out.println("Esse estado não pode receber mais cidades, tem mais gastos do que orçamento.");
-        return (estado.getOrcamentoTotal() > estado.getGastosTotais());
-    }
-    
     private Boolean validarNomeCidade(Cidade cidade){
         List<Cidade> cidades = dao.findCidadePorEstado(cidade.getEstado().getId());
-        System.out.println("Já existe cidade com esse nome no estado");
+        System.out.println("Já existe cidade com esse nome no estado, os gastos serão atualizados.");
         return cidades.stream().noneMatch(c -> c.getNome().equals(cidade.getNome()));
     }
 }
