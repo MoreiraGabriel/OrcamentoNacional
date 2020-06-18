@@ -60,8 +60,7 @@ public class EstadoServiceImpl {
     }
     
     public Boolean validarOrcamentoEstado(Estado estado){
-        System.out.println("Esse estado não pode receber mais cidades, tem mais gastos do que orçamento.");
-        return (estado.getOrcamentoTotal() > estado.getGastosTotais());
+        return estado.getOrcamentoTotal() > estado.getGastosTotais();
     }
     
     public void atualizarGastosTotais(Long idEstado){

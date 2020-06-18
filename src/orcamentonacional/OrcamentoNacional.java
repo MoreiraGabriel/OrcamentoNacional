@@ -37,10 +37,10 @@ public class OrcamentoNacional {
 
         Cidade cidade = new Cidade();
         //cidade.setId(5L);
-        cidade.setNome("Cataguases");
+        cidade.setNome("Belo Horizonte");
         cidade.setClima("Subtropical");
-        cidade.setPopulacao(60000);
-        cidade.setGastos(6000F);
+        cidade.setPopulacao(100000);
+        cidade.setGastos(10000F);
         cidade.setEstado(estado);
         
         Cidade leopoldina = new Cidade();

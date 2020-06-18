@@ -24,6 +24,11 @@ public class CidadeServiceImpl {
         Estado estado = serviceEstado.obterPorId(cidade.getEstado().getId());
         Boolean validarOrcamento = serviceEstado.validarOrcamentoEstado(estado);
         Boolean validarNomeCidade = validarNomeCidade(cidade);
+
+        if(validarOrcamento == false){
+            System.out.println("Esse estado não pode receber mais cidades, tem mais gastos do que orçamento.");
+            return false;
+        }
         
         if(validarOrcamento && validarNomeCidade == true){
            dao.persist(cidade);
@@ -70,7 +75,6 @@ public class CidadeServiceImpl {
     
     private Boolean validarNomeCidade(Cidade cidade){
         List<Cidade> cidades = dao.findCidadePorEstado(cidade.getEstado().getId());
-        System.out.println("Já existe cidade com esse nome no estado, os gastos serão atualizados.");
         return cidades.stream().noneMatch(c -> c.getNome().equals(cidade.getNome()));
     }
 }
