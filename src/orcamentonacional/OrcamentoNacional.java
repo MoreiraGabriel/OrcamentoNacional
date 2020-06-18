@@ -16,7 +16,7 @@ import servico.EstadoServiceImpl;
  *
  * @author asus
  */
-public class OrçamentoNacional {
+public class OrcamentoNacional {
 
     /**
      * @param args the command line arguments
@@ -26,7 +26,7 @@ public class OrçamentoNacional {
         EstadoServiceImpl serviceEstado = new EstadoServiceImpl();
 
         Estado estado = new Estado();  
-        estado.setId(3L);
+        estado.setId(1L);
         estado.setNome("Rio de Janeiro");
         estado.setSigla("RJ");
         estado.setDistritoFederal(false);
@@ -36,10 +36,11 @@ public class OrçamentoNacional {
         //serviceEstado.cadastrarEstado(estado);
 
         Cidade cidade = new Cidade();
-        cidade.setNome("São Paulo");
+        //cidade.setId(5L);
+        cidade.setNome("Cataguases");
         cidade.setClima("Subtropical");
         cidade.setPopulacao(60000);
-        cidade.setGastos(5000F);
+        cidade.setGastos(6000F);
         cidade.setEstado(estado);
         
         Cidade leopoldina = new Cidade();
@@ -49,7 +50,7 @@ public class OrçamentoNacional {
         leopoldina.setGastos(1000F);
         leopoldina.setEstado(estado);
         
-        //serviceCidade.cadastrarCidade(cidade);
+        serviceCidade.cadastrarCidade(cidade);
         //serviceCidade.cadastrarCidade(leopoldina);
         
         /*List<Cidade> cidades = cidadeDao.findAll();

@@ -9,7 +9,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import model.Estado;
+import static org.hibernate.criterion.Expression.sql;
 
 /**
  *
@@ -126,14 +128,16 @@ public class EstadoDao {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("OrcamentoNacionalPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
+        String sql = "Update Estado Set Gastostotais = (Select Sum(gastos) From Cidade Where Id_estado = :idEstado) Where Id = :idEstado";
+        Query query = em.createQuery(sql);
         
-        try {
-            List result = em.createQuery("Update Estado Set Gastostotais = (Select Sum(gastos) From Cidade Where Id_estado = "+idEstado+") Where Id = "+idEstado+"").getResultList();
-            System.out.println(result);
+        try {            
+            query.setParameter("idEstado", idEstado);
+            query.executeUpdate();
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
-            System.out.println("Erro ao atualizar gastos totais.");
+            System.out.println("Erro ao atualizar gastos totais.");       
         } finally{
             em.close();
         }

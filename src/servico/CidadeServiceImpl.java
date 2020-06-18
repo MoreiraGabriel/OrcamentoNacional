@@ -31,9 +31,9 @@ public class CidadeServiceImpl {
            serviceEstado.atualizarGastosTotais(estado.getId());
            return true;           
         } else{
-            atualizarCidade(cidade);
             serviceEstado.atualizarGastosTotais(estado.getId());
             System.out.println("Cidade já cadastrada anteriormente, gastos da cidade atualizados.");
+            atualizarCidade(cidade);
         }      
         System.out.println("Erro ao cadastrar cidade " + cidade.getNome());
         return false;
@@ -60,7 +60,7 @@ public class CidadeServiceImpl {
             dao.update(cidade);
             return true;
         } 
-        System.out.println("Estado sem id para validação.");
+        System.out.println("Estado ou Cidade sem id para validação.");
         return false;
     }
     
