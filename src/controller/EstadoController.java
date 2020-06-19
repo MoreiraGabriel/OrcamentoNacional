@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servico;
+package controller;
 
 import dao.EstadoDao;
 import java.util.List;
@@ -13,7 +13,7 @@ import model.Estado;
  *
  * @author asus
  */
-public class EstadoServiceImpl {
+public class EstadoController {
     private final EstadoDao estadoDao = new EstadoDao();
     
     public Boolean cadastrarEstado(Estado estado){

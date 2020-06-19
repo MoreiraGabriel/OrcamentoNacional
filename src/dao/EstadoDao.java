@@ -11,7 +11,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.Estado;
-import static org.hibernate.criterion.Expression.sql;
 
 /**
  *
@@ -87,7 +86,7 @@ public class EstadoDao {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         
-        List<Estado> lista = em.createQuery("Select a From Estado a", Estado.class).getResultList();
+        List<Estado> lista = em.createQuery("Select a From Estado a Order By Id", Estado.class).getResultList();
         return lista;
     }
     

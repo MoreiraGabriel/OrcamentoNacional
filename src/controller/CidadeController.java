@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servico;
+package controller;
 
 import dao.CidadeDao;
 import java.util.List;
@@ -15,33 +15,32 @@ import model.Estado;
  * @author asus
  */
 
-public class CidadeServiceImpl {
+public class CidadeController {
     
-    private final EstadoServiceImpl serviceEstado = new EstadoServiceImpl();
+    private final EstadoController controllerEstado = new EstadoController();
     private final CidadeDao dao = new CidadeDao();
     
     public Boolean cadastrarCidade(Cidade cidade){
-        Estado estado = serviceEstado.obterPorId(cidade.getEstado().getId());
-        Boolean validarOrcamento = serviceEstado.validarOrcamentoEstado(estado);
+        Estado estado = controllerEstado.obterPorId(cidade.getEstado().getId());
+        Boolean validarOrcamento = controllerEstado.validarOrcamentoEstado(estado);
         Boolean validarNomeCidade = validarNomeCidade(cidade);
 
         if(validarOrcamento == false){
-            System.out.println("Esse estado não pode receber mais cidades, tem mais gastos do que orçamento.");
+            System.out.println("Esse estado não pode receber mais cidades, tem mais gastos do que orçamento disponível.");
             return false;
         }
         
         if(validarOrcamento && validarNomeCidade == true){
            dao.persist(cidade);
            System.out.println("Cidade cadastrada");
-           serviceEstado.atualizarGastosTotais(estado.getId());
+           controllerEstado.atualizarGastosTotais(estado.getId());
            return true;           
-        } else{
-            serviceEstado.atualizarGastosTotais(estado.getId());
+        } else{            
             System.out.println("Cidade já cadastrada anteriormente, gastos da cidade atualizados.");
             atualizarCidade(cidade);
+            controllerEstado.atualizarGastosTotais(estado.getId());
+            return true;
         }      
-        System.out.println("Erro ao cadastrar cidade " + cidade.getNome());
-        return false;
     }
     
     public List<Cidade> obterTodas(){
