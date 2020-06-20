@@ -24,18 +24,18 @@ public class OrcamentoNacional {
         CidadeController controllerCidade = new CidadeController();
         EstadoController controllerEstado = new EstadoController();
 
-        Estado estado = new Estado();  
-        estado.setId(1L);
+        /*Estado estado = new Estado();  
+        //estado.setId(1L);
         estado.setNome("Rio de Janeiro");
         estado.setSigla("RJ");
         estado.setDistritoFederal(false);
         estado.setGastosTotais(7000.00F);
-        estado.setOrcamentoTotal(6000.00F);
+        estado.setOrcamentoTotal(6000.00F);*/
 
         //serviceEstado.cadastrarEstado(estado);
 
-        Cidade cidade = new Cidade();
-        cidade.setId(11L);
+        /*Cidade cidade = new Cidade();
+        //cidade.setId(11L);
         cidade.setNome("Belo Horizonte");
         cidade.setClima("Subtropical");
         cidade.setPopulacao(100000);
@@ -47,13 +47,13 @@ public class OrcamentoNacional {
         leopoldina.setClima("Equatorial");
         leopoldina.setPopulacao(25000);
         leopoldina.setGastos(1000F);
-        leopoldina.setEstado(estado);
+        leopoldina.setEstado(estado);*/
         
-        controllerCidade.cadastrarCidade(cidade);
+        //controllerCidade.cadastrarCidade(cidade);
         //serviceCidade.cadastrarCidade(leopoldina);
         
-        /*List<Cidade> cidades = serviceCidade.obterTodas();
-        List<Estado> estados = serviceEstado.obterTodos();*/
+        List<Cidade> cidades = controllerCidade.obterTodas();
+        List<Estado> estados = controllerEstado.obterTodos();
    
         //List<Cidade> cidadeEstado = cidadeDao.findCidadePorEstado(5L);
         
@@ -62,8 +62,8 @@ public class OrcamentoNacional {
    
         //System.out.println(serviceEstado.ObterEstadosDevedores());
         //serviceEstado.atualizarGastosTotais(3L);
-        //System.out.println(cidades);        
-        //System.out.println(estados);
+        System.out.println(cidades);        
+        System.out.println(estados);
     }
     
 }
