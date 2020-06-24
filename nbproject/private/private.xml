@@ -15,10 +15,10 @@
             <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/orcamentonacional/OrcamentoNacional.java</file>
             <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/dao/EstadoDao.java</file>
             <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/dao/CidadeDao.java</file>
-            <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/servico/EstadoServiceImpl.java</file>
+            <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/controller/EstadoController.java</file>
             <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/model/Estado.java</file>
             <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/model/Cidade.java</file>
-            <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/servico/CidadeServiceImpl.java</file>
+            <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/controller/CidadeController.java</file>
         </group>
     </open-files>
 </project-private>

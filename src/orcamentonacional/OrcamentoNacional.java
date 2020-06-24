@@ -52,7 +52,7 @@ public class OrcamentoNacional {
         //controllerCidade.cadastrarCidade(cidade);
         //serviceCidade.cadastrarCidade(leopoldina);
         
-        List<Cidade> cidades = controllerCidade.obterTodas();
+        List<Cidade> cidades = controllerCidade.obterPorSiglaEstado("MG");
         List<Estado> estados = controllerEstado.obterTodos();
    
         //List<Cidade> cidadeEstado = cidadeDao.findCidadePorEstado(5L);
@@ -63,7 +63,7 @@ public class OrcamentoNacional {
         //System.out.println(serviceEstado.ObterEstadosDevedores());
         //serviceEstado.atualizarGastosTotais(3L);
         System.out.println(cidades);        
-        System.out.println(estados);
+        //System.out.println(estados);
     }
     
 }

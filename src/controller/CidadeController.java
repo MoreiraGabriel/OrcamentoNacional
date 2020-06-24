@@ -59,6 +59,10 @@ public class CidadeController {
        return dao.findCidadePorClima(clima);
     }
     
+    public List<Cidade> obterPorSiglaEstado(String sigla){
+        return dao.findCidadePorSiglaEstado(sigla);
+    }
+    
     public Boolean atualizarCidade(Cidade cidade){
         if(cidade.getEstado().getId() != null && cidade.getId() != null){
             dao.update(cidade);

@@ -116,6 +116,6 @@ public class Cidade implements Serializable {
 
     @Override
     public String toString() {
-        return "Cidade{" + "id=" + id + ", nome=" + nome + ", populacao=" + populacao + ", clima=" + clima + ", gastos=" + gastos + ", estado=" + estado.getNome() +'}';
+        return "Cidade{" + "id=" + id + ", nome=" + nome + ", populacao=" + populacao + ", clima=" + clima + ", gastos=" + gastos + ", estado=" + estado + '}';
     }
 }

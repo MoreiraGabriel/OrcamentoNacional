@@ -105,8 +105,17 @@ public class CidadeDao {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         
-        List<Cidade> lista = em.createQuery("Select a From Cidade a Where Id_estado = "+ idEstado +"", Cidade.class).getResultList();
-        return lista;
+       
+        try {
+            List<Cidade> lista = em.createQuery("Select a From Cidade a Where Id_estado = "+ idEstado +"", Cidade.class).getResultList();
+            return lista;
+        } catch (Exception e) {
+            System.out.println("Erro ao encontrar cidade.");
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        return null;
     }
     
     public List<Cidade> findCidadePorClima(String clima){
@@ -114,7 +123,35 @@ public class CidadeDao {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         
-        List<Cidade> lista = em.createQuery("Select a From Cidade a Where Clima = '"+ clima +"'", Cidade.class).getResultList();
-        return lista;
+        try {
+            List<Cidade> lista = em.createQuery("Select a From Cidade a Where Clima = '"+ clima +"'", Cidade.class).getResultList();
+            return lista;
+        } catch (Exception e) {
+            System.out.println("Erro ao encontrar cidade.");
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        return null;
+        
+    }
+    
+    public List<Cidade> findCidadePorSiglaEstado(String sigla){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("OrcamentoNacionalPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        
+        try {
+            List<Cidade> lista = em.createQuery("Select c From Cidade c where c.estado.sigla =:sigla" , Cidade.class)
+                    .setParameter("sigla", sigla).getResultList();
+            
+            return lista;
+        } catch (Exception e) {
+            System.out.println("Erro ao encontrar cidade.");
+            em.getTransaction().rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
     }
 }
