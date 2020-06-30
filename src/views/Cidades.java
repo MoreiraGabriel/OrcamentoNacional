@@ -9,12 +9,12 @@ package views;
  *
  * @author Diego Pazos
  */
-public class Estados extends javax.swing.JFrame {
+public class Cidades extends javax.swing.JFrame {
 
     /**
      * Creates new form Estados
      */
-    public Estados() {
+    public Cidades() {
         initComponents();
     }
 
@@ -115,7 +115,7 @@ public class Estados extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Estados().setVisible(true);
+                new Cidades().setVisible(true);
             }
         });
     }

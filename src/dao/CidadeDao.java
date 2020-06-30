@@ -55,6 +55,26 @@ public class CidadeDao {
         return cidade;
     }
     
+    public Cidade findByName(String nome){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("OrcamentoNacionalPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        
+        Cidade cidade = new Cidade();
+        
+        try {
+            cidade = em.createQuery("Select a From Cidade a Where Nome = '"+ nome +"'", Cidade.class).getSingleResult();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Erro ao encontrar cidade.");
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        
+        return cidade;
+    }
+    
     public Cidade update(Cidade cidade){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("OrcamentoNacionalPU");
         EntityManager em = emf.createEntityManager();

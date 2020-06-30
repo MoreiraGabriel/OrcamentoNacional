@@ -10,6 +10,8 @@ import model.Cidade;
 import model.Estado;
 import controller.CidadeController;
 import controller.EstadoController;
+import dto.CidadeDto;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -52,8 +54,8 @@ public class OrcamentoNacional {
         //controllerCidade.cadastrarCidade(cidade);
         //serviceCidade.cadastrarCidade(leopoldina);
         
-        List<Cidade> cidades = controllerCidade.obterPorSiglaEstado("MG");
-        List<Estado> estados = controllerEstado.obterTodos();
+        //List<Cidade> cidades = controllerCidade.obterPorSiglaEstado("MG");
+        //List<Estado> estados = controllerEstado.obterTodos();
    
         //List<Cidade> cidadeEstado = cidadeDao.findCidadePorEstado(5L);
         
@@ -62,8 +64,13 @@ public class OrcamentoNacional {
    
         //System.out.println(serviceEstado.ObterEstadosDevedores());
         //serviceEstado.atualizarGastosTotais(3L);
-        System.out.println(cidades);        
+        //System.out.println(cidades);        
         //System.out.println(estados);
+        
+        List<Cidade> lista = controllerCidade.obterPorSiglaEstado("MG");
+        List<CidadeDto> cidades = CidadeDto.converter(lista);
+
+        System.out.println(lista);
     }
     
 }

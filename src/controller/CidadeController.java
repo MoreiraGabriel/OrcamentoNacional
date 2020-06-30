@@ -47,8 +47,8 @@ public class CidadeController {
         return dao.findAll();
     }
     
-    public Cidade obterPorId(Long id){
-        return dao.findById(id);
+    public Cidade obterPorNome(String nome){
+        return dao.findByName(nome);
     }
     
     public List<Cidade> obterPorEstado(Long idEstado){
