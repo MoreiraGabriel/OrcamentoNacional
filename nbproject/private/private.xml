@@ -15,9 +15,10 @@
             <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/orcamentonacional/OrcamentoNacional.java</file>
             <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/views/Estados.java</file>
             <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/dao/CidadeDao.java</file>
-            <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/views/BuscarEstados.java</file>
-            <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/views/CidadeEditar.java</file>
-            <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/views/BuscarCidade.java</file>
+            <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/views/MenuInicial.java</file>
+            <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/views/Cidades.java</file>
+            <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/controller/CidadeController.java</file>
+            <file>file:/C:/Users/gabriel.moreira/Documents/NetBeansProjects/OrcamentoNacional/src/views/BuscarEstado.java</file>
         </group>
     </open-files>
 </project-private>

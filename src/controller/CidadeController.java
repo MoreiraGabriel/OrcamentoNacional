@@ -7,6 +7,8 @@ package controller;
 
 import dao.CidadeDao;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 import model.Cidade;
 import model.Estado;
 
@@ -23,22 +25,23 @@ public class CidadeController {
     public Boolean cadastrarCidade(Cidade cidade){
         Estado estado = controllerEstado.obterPorId(cidade.getEstado().getId());
         Boolean validarOrcamento = controllerEstado.validarOrcamentoEstado(estado);
-        Boolean validarNomeCidade = validarNomeCidade(cidade);
+        Optional<Cidade> validarNomeCidade = validarNomeCidade(cidade);
 
         if(validarOrcamento == false){
             System.out.println("Esse estado não pode receber mais cidades, tem mais gastos do que orçamento disponível.");
             return false;
         }
         
-        if(validarOrcamento && validarNomeCidade == true){
-           dao.persist(cidade);
-           System.out.println("Cidade cadastrada");
+        if(validarOrcamento && !validarNomeCidade.isPresent()){
+           dao.persist(cidade);           
            controllerEstado.atualizarGastosTotais(estado.getId());
+           System.out.println("Cidade cadastrada");
            return true;           
         } else{            
-            System.out.println("Cidade já cadastrada anteriormente, gastos da cidade atualizados.");
+            cidade.setId(validarNomeCidade.get().getId());
             atualizarCidade(cidade);
             controllerEstado.atualizarGastosTotais(estado.getId());
+            System.out.println("Cidade já cadastrada anteriormente, gastos da cidade atualizados.");
             return true;
         }      
     }
@@ -76,8 +79,11 @@ public class CidadeController {
         return dao.remove(id);
     }
     
-    private Boolean validarNomeCidade(Cidade cidade){
+    private Optional<Cidade> validarNomeCidade(Cidade cidade){
         List<Cidade> cidades = dao.findCidadePorEstado(cidade.getEstado().getId());
-        return cidades.stream().noneMatch(c -> c.getNome().equals(cidade.getNome()));
+        Stream<Cidade> city = cidades.stream().filter(c -> c.getNome().equals(cidade.getNome()));
+        Optional<Cidade> c = city.findFirst();
+        System.out.println(c);
+        return c;
     }
 }

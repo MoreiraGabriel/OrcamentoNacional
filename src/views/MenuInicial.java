@@ -94,11 +94,11 @@ public class MenuInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jB_CidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_CidadeActionPerformed
-        new Cidades(null,true).setVisible(true);
+        new BuscarCidade(null,true).setVisible(true);
     }//GEN-LAST:event_jB_CidadeActionPerformed
 
     private void jB_EstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_EstadoActionPerformed
-        new Estados(null,true).setVisible(true);
+        new BuscarEstado(null,true).setVisible(true);
     }//GEN-LAST:event_jB_EstadoActionPerformed
 
     /**

@@ -16,14 +16,16 @@ import model.Estado;
  *
  * @author Diego Pazos
  */
-public class BuscarEstado extends javax.swing.JFrame {
+public class BuscarEstado extends javax.swing.JDialog {
     
     EstadoController controller = new EstadoController();
 
     /**
      * Creates new form BuscarCidade
      */
-    public BuscarEstado() {
+    public BuscarEstado(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        this.setLocationRelativeTo(null);
         initComponents();
     }
 
@@ -40,15 +42,26 @@ public class BuscarEstado extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
+        tfNome = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnNome = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         btnBuscarTodos = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
-        btnSelecionar = new javax.swing.JButton();
         btnBuscarDevedores = new javax.swing.JButton();
+        jL_SiglaEstado = new javax.swing.JLabel();
+        tfSigla = new javax.swing.JTextField();
+        jL_DfEstado = new javax.swing.JLabel();
+        cbDf = new javax.swing.JCheckBox();
+        jL_GastosTotaisEstado = new javax.swing.JLabel();
+        tfGastos = new javax.swing.JTextField();
+        tfOrcamento = new javax.swing.JTextField();
+        jL_OrcTotalEstado = new javax.swing.JLabel();
+        jB_AtualizarEstado = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        tfId = new javax.swing.JTextField();
+        btnLimpar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -63,10 +76,16 @@ public class BuscarEstado extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tele-GroteskFet", 3, 36)); // NOI18N
         jLabel1.setText("Buscar Estado");
+        jLabel1.setOpaque(true);
 
         jLabel2.setText("Nome:");
 
@@ -81,15 +100,25 @@ public class BuscarEstado extends javax.swing.JFrame {
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Id", "Nome", "Sigla", "Orçamento", "Gastos"
+                "Id", "Nome", "Sigla", "DF", "Orçamento", "Gastos"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tabela);
 
         btnBuscarTodos.setText("Buscar Todos");
@@ -106,12 +135,41 @@ public class BuscarEstado extends javax.swing.JFrame {
             }
         });
 
-        btnSelecionar.setText("Selecionar");
-
         btnBuscarDevedores.setText("Buscar Devedores");
         btnBuscarDevedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarDevedoresActionPerformed(evt);
+            }
+        });
+
+        jL_SiglaEstado.setText("Sigla:");
+
+        jL_DfEstado.setText("DF:");
+
+        jL_GastosTotaisEstado.setText("Gastos Totais:");
+
+        jL_OrcTotalEstado.setText("Orçamento Total:");
+
+        jB_AtualizarEstado.setText("Atualizar");
+        jB_AtualizarEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB_AtualizarEstadoActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Id:");
+
+        tfId.setEditable(false);
+        tfId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfIdActionPerformed(evt);
+            }
+        });
+
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
             }
         });
 
@@ -123,60 +181,109 @@ public class BuscarEstado extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(59, 59, 59)
-                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnNome))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jL_OrcTotalEstado)
+                                    .addComponent(jL_GastosTotaisEstado)
+                                    .addComponent(jL_DfEstado)
+                                    .addComponent(jL_SiglaEstado))
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbDf)
+                                    .addComponent(tfOrcamento, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                                    .addComponent(tfSigla)
+                                    .addComponent(tfGastos)))
                             .addComponent(jLabel5)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btnBuscarDevedores, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnBuscarTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(99, 99, 99))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel3))
+                                    .addGap(104, 104, 104)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnNome))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(60, 60, 60)
+                                    .addComponent(btnBuscarDevedores, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                                    .addComponent(btnBuscarTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(btnRemover)
-                        .addGap(79, 79, 79)
-                        .addComponent(btnSelecionar)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addGap(125, 125, 125)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(107, 107, 107)
+                .addComponent(btnRemover)
+                .addGap(43, 43, 43)
+                .addComponent(btnLimpar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jB_AtualizarEstado)
+                .addGap(143, 143, 143))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNome))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfSigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jL_SiglaEstado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbDf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jL_DfEstado, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNome))
-                .addGap(77, 77, 77)
+                    .addComponent(jL_GastosTotaisEstado)
+                    .addComponent(tfGastos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jL_OrcTotalEstado))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscarTodos)
-                    .addComponent(btnBuscarDevedores))
-                .addGap(35, 35, 35)
+                    .addComponent(btnBuscarDevedores)
+                    .addComponent(btnBuscarTodos))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRemover)
-                    .addComponent(btnSelecionar))
-                .addContainerGap(86, Short.MAX_VALUE))
+                    .addComponent(jB_AtualizarEstado)
+                    .addComponent(btnLimpar))
+                .addGap(32, 32, 32))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
     private void btnNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNomeActionPerformed
-        String nomeEstado = txtNome.getText().toString();
+        String nomeEstado = tfNome.getText().toString();
         Estado estadoM;
         try {
             estadoM = controller.obterPorNome(nomeEstado);
@@ -190,6 +297,7 @@ public class BuscarEstado extends javax.swing.JFrame {
                     estado.getId(),
                     estado.getNome(),
                     estado.getSigla(),
+                    estado.getDistritoFederal(),
                     estado.getOrcamentoTotal(),
                     estado.getGastosTotais()
                 });
@@ -200,7 +308,11 @@ public class BuscarEstado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNomeActionPerformed
 
     private void btnBuscarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarTodosActionPerformed
-       List<Estado> lista;
+      listar();
+    }//GEN-LAST:event_btnBuscarTodosActionPerformed
+
+    private void listar(){
+         List<Estado> lista;
         try {
             lista = controller.obterTodos();            
             DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
@@ -211,6 +323,7 @@ public class BuscarEstado extends javax.swing.JFrame {
                     estado.getId(),
                     estado.getNome(),
                     estado.getSigla(),
+                    estado.getDistritoFederal(),
                     estado.getOrcamentoTotal(),
                     estado.getGastosTotais()
                                      
@@ -219,8 +332,7 @@ public class BuscarEstado extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao listar o estados!");
         }
-    }//GEN-LAST:event_btnBuscarTodosActionPerformed
-
+    }
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         try {
             Long id = Long.parseLong(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
@@ -230,6 +342,7 @@ public class BuscarEstado extends javax.swing.JFrame {
             } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao Excluir o estado!");
         }
+        listar();
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void btnBuscarDevedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDevedoresActionPerformed
@@ -244,6 +357,7 @@ public class BuscarEstado extends javax.swing.JFrame {
                     estado.getId(),
                     estado.getNome(),
                     estado.getSigla(),
+                    estado.getDistritoFederal(),
                     estado.getOrcamentoTotal(),
                     estado.getGastosTotais()
                                      
@@ -254,7 +368,54 @@ public class BuscarEstado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarDevedoresActionPerformed
 
-    
+    private void jB_AtualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_AtualizarEstadoActionPerformed
+        Estado estado = new Estado();
+        
+       
+        estado.setNome(tfNome.getText());
+        estado.setSigla(tfSigla.getText());
+        estado.setDistritoFederal(cbDf.isSelected());
+        estado.setOrcamentoTotal(Float.parseFloat(tfOrcamento.getText()));
+        estado.setGastosTotais(Float.parseFloat(tfGastos.getText()));
+        
+        if(tfId.getText().isEmpty()){
+            controller.cadastrarEstado(estado);            
+        }else{
+            Long id = Long.parseLong(tfId.getText());
+            estado.setId(id);
+            controller.atualizarEstado(estado);
+        }
+        
+        listar();
+        
+    }//GEN-LAST:event_jB_AtualizarEstadoActionPerformed
+
+    private void tfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfIdActionPerformed
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        tfId.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+        tfNome.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
+        tfSigla.setText(tabela.getValueAt(tabela.getSelectedRow(), 2).toString());
+        cbDf.setSelected((boolean) tabela.getValueAt(tabela.getSelectedRow(), 3));
+        tfOrcamento.setText(tabela.getValueAt(tabela.getSelectedRow(), 4).toString());
+        tfGastos.setText(tabela.getValueAt(tabela.getSelectedRow(), 5).toString());
+    }//GEN-LAST:event_tabelaMouseClicked
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+       tfId.setText("");
+        tfNome.setText("");
+        tfSigla.setText("");
+        cbDf.setSelected(false);
+        tfOrcamento.setText("");
+        tfGastos.setText("");
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        listar();
+    }//GEN-LAST:event_formWindowActivated
+
     /**
      * @param args the command line arguments
      */
@@ -286,7 +447,14 @@ public class BuscarEstado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarEstado().setVisible(true);
+                BuscarEstado dialog = new BuscarEstado(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -294,16 +462,27 @@ public class BuscarEstado extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarDevedores;
     private javax.swing.JButton btnBuscarTodos;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnNome;
     private javax.swing.JButton btnRemover;
-    private javax.swing.JButton btnSelecionar;
+    private javax.swing.JCheckBox cbDf;
+    private javax.swing.JButton jB_AtualizarEstado;
+    private javax.swing.JLabel jL_DfEstado;
+    private javax.swing.JLabel jL_GastosTotaisEstado;
+    private javax.swing.JLabel jL_OrcTotalEstado;
+    private javax.swing.JLabel jL_SiglaEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tabela;
-    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField tfGastos;
+    private javax.swing.JTextField tfId;
+    private javax.swing.JTextField tfNome;
+    private javax.swing.JTextField tfOrcamento;
+    private javax.swing.JTextField tfSigla;
     // End of variables declaration//GEN-END:variables
 }

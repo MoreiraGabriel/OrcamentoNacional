@@ -5,17 +5,30 @@
  */
 package views;
 
+import java.util.Optional;
+import model.Cidade;
+
 /**
  *
  * @author Diego Pazos
  */
-public class CidadeEditar extends javax.swing.JFrame {
+public class CidadeEditar extends javax.swing.JDialog {
 
+    Optional<Cidade> cidade = null;
     /**
      * Creates new form CidadeEditar
      */
-    public CidadeEditar() {
+    public CidadeEditar(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        this.setLocationRelativeTo(null);
         initComponents();
+    }
+
+     public CidadeEditar(java.awt.Frame parent, boolean modal, Optional<Cidade> optional) {
+        super(parent, modal);
+        this.setLocationRelativeTo(null);
+        initComponents();
+        cidade = optional;
     }
 
     /**
@@ -34,8 +47,8 @@ public class CidadeEditar extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        jbAtualizar = new javax.swing.JButton();
+        tfId = new javax.swing.JTextField();
         tfNome = new javax.swing.JTextField();
         tfGastos = new javax.swing.JTextField();
         tfClima = new javax.swing.JTextField();
@@ -63,7 +76,19 @@ public class CidadeEditar extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Atualizar");
+        jbAtualizar.setText("Atualizar");
+        jbAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAtualizarActionPerformed(evt);
+            }
+        });
+
+        tfId.setEditable(false);
+        tfId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfIdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,29 +108,24 @@ public class CidadeEditar extends javax.swing.JFrame {
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(tfPopulacao, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addComponent(jLabel7)
-                                            .addGap(2, 2, 2)
-                                            .addComponent(tfClima))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel5)
                                             .addComponent(jLabel2)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel4)
-                                                .addComponent(jLabel5))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(tfGastos, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                                                .addComponent(tfNome)))))))
+                                            .addComponent(jLabel7))
+                                        .addGap(40, 40, 40)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(tfClima, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                                            .addComponent(tfGastos)
+                                            .addComponent(tfNome)
+                                            .addComponent(tfId))))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(58, 58, 58)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addComponent(jbAtualizar)))
                 .addGap(81, 81, 81))
         );
         layout.setVerticalGroup(
@@ -116,7 +136,7 @@ public class CidadeEditar extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -136,7 +156,7 @@ public class CidadeEditar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jbAtualizar))
                 .addGap(26, 26, 26))
         );
 
@@ -146,6 +166,20 @@ public class CidadeEditar extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfIdActionPerformed
+
+    private void jbAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAtualizarActionPerformed
+        if(cidade.isPresent()){
+            tfId.setText(cidade.get().getId().toString());
+            tfNome.setText(cidade.get().getNome());
+            tfGastos.setText(cidade.get().getGastos().toString());
+            tfClima.setText(cidade.get().getClima());
+            tfPopulacao.setText(cidade.get().getPopulacao().toString());
+        }
+    }//GEN-LAST:event_jbAtualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,23 +211,30 @@ public class CidadeEditar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CidadeEditar().setVisible(true);
+               CidadeEditar dialog = new CidadeEditar(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton jbAtualizar;
     private javax.swing.JTextField tfClima;
     private javax.swing.JTextField tfGastos;
+    private javax.swing.JTextField tfId;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfPopulacao;
     // End of variables declaration//GEN-END:variables

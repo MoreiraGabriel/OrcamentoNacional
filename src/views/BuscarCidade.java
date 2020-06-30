@@ -17,14 +17,16 @@ import model.Cidade;
  *
  * @author Diego Pazos
  */
-public class BuscarCidade extends javax.swing.JFrame {
+public class BuscarCidade extends javax.swing.JDialog {
     
     CidadeController controller = new CidadeController();
 
     /**
      * Creates new form BuscarCidade
      */
-    public BuscarCidade() {
+    public BuscarCidade(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        this.setLocationRelativeTo(null);
         initComponents();
     }
 
@@ -69,7 +71,7 @@ public class BuscarCidade extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tele-GroteskFet", 3, 36)); // NOI18N
         jLabel1.setText("Buscar Cidade");
@@ -105,18 +107,18 @@ public class BuscarCidade extends javax.swing.JFrame {
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "Clima", "Gastos", "Sigla"
+                "Id", "Nome", "Gastos", "Clima", "População", "Sigla"
             }
         ));
         jScrollPane2.setViewportView(tabela);
         if (tabela.getColumnModel().getColumnCount() > 0) {
-            tabela.getColumnModel().getColumn(2).setResizable(false);
+            tabela.getColumnModel().getColumn(3).setResizable(false);
         }
 
         btnBuscarTodas.setText("Buscar Todas");
@@ -134,6 +136,11 @@ public class BuscarCidade extends javax.swing.JFrame {
         });
 
         btnSelecionar.setText("Selecionar");
+        btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -317,6 +324,10 @@ public class BuscarCidade extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRemoverActionPerformed
 
+    private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
+       new CidadeEditar(null,true).setVisible(true);
+    }//GEN-LAST:event_btnSelecionarActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -348,7 +359,14 @@ public class BuscarCidade extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarCidade().setVisible(true);
+                BuscarCidade dialog = new BuscarCidade(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
