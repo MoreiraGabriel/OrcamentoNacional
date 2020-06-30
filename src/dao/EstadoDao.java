@@ -54,6 +54,26 @@ public class EstadoDao {
         return estado;
     }
     
+    public Estado findByName(String nome){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("OrcamentoNacionalPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        
+        Estado estado = new Estado();
+        
+        try {
+            estado = em.createQuery("Select a From Estado a Where Nome = '"+ nome +"'", Estado.class).getSingleResult();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Erro ao encontrar estado.");
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        
+        return estado;
+    }
+    
     public List<Estado> findEstadoDevedor(){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("OrcamentoNacionalPU");
         EntityManager em = emf.createEntityManager();

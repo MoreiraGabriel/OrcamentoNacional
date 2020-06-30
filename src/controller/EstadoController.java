@@ -34,7 +34,7 @@ public class EstadoController {
         }
     }
     
-    public Boolean excluirEstadao(Long id){
+    public Boolean excluirEstado(Long id){
         try {
             estadoDao.remove(id);
             return true;
@@ -45,6 +45,10 @@ public class EstadoController {
     
     public Estado obterPorId(Long id){
         return estadoDao.findById(id);
+    }
+    
+    public Estado obterPorNome(String nome){
+        return estadoDao.findByName(nome);
     }
     
     public List<Estado> obterTodos(){

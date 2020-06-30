@@ -52,6 +52,9 @@ public class BuscarCidade extends javax.swing.JFrame {
         btnClima = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
+        btnBuscarTodas = new javax.swing.JButton();
+        btnRemover = new javax.swing.JButton();
+        btnSelecionar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -102,19 +105,35 @@ public class BuscarCidade extends javax.swing.JFrame {
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "Clima", "Sigla"
+                "Id", "Nome", "Clima", "Gastos", "Sigla"
             }
         ));
         jScrollPane2.setViewportView(tabela);
         if (tabela.getColumnModel().getColumnCount() > 0) {
             tabela.getColumnModel().getColumn(2).setResizable(false);
         }
+
+        btnBuscarTodas.setText("Buscar Todas");
+        btnBuscarTodas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarTodasActionPerformed(evt);
+            }
+        });
+
+        btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
+
+        btnSelecionar.setText("Selecionar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,7 +144,6 @@ public class BuscarCidade extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -133,18 +151,27 @@ public class BuscarCidade extends javax.swing.JFrame {
                                     .addComponent(jLabel4))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtClima, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                                    .addComponent(txtNome)
-                                    .addComponent(txtSigla))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnSigla)
-                                    .addComponent(btnClima)
-                                    .addComponent(btnNome)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtClima, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                                            .addComponent(txtNome)
+                                            .addComponent(txtSigla))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnSigla)
+                                            .addComponent(btnClima)
+                                            .addComponent(btnNome)))
+                                    .addComponent(btnBuscarTodas, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)))
+                            .addComponent(jLabel5)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(85, 85, 85)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(btnRemover)
+                        .addGap(79, 79, 79)
+                        .addComponent(btnSelecionar)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -162,16 +189,22 @@ public class BuscarCidade extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtSigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSigla))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtClima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClima))
                 .addGap(18, 18, 18)
+                .addComponent(btnBuscarTodas)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(52, 52, 52)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRemover)
+                    .addComponent(btnSelecionar))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         pack();
@@ -190,7 +223,9 @@ public class BuscarCidade extends javax.swing.JFrame {
                 modelo.addRow(new Object[]{
                     cidade.getId(),
                     cidade.getNome(),
+                    cidade.getGastos(),
                     cidade.getClima(),
+                    cidade.getPopulacao(),
                     cidade.getSigla()                    
                 });
             }
@@ -213,7 +248,9 @@ public class BuscarCidade extends javax.swing.JFrame {
                 modelo.addRow(new Object[]{
                     dto.getId(),
                     dto.getNome(),
+                    dto.getGastos(),
                     dto.getClima(),
+                    dto.getPopulacao(),
                     dto.getSigla()                    
                 });
             }
@@ -223,26 +260,62 @@ public class BuscarCidade extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNomeActionPerformed
 
     private void btnClimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClimaActionPerformed
-       String clima = txtClima.getText().toString();
+        String clima = txtClima.getText().toString();
         List<Cidade> lista;
         try {
             lista = controller.obterCidadePorClima(clima);
             List<CidadeDto> cidades = CidadeDto.converter(lista);
             DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
             modelo.setNumRows(0);
-            
+
             for (CidadeDto cidade : cidades) {
                 modelo.addRow(new Object[]{
                     cidade.getId(),
                     cidade.getNome(),
+                    cidade.getGastos(),
                     cidade.getClima(),
-                    cidade.getSigla()                    
+                    cidade.getPopulacao(),
+                    cidade.getSigla()                   
                 });
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao listar o Cidades!");
         }
     }//GEN-LAST:event_btnClimaActionPerformed
+
+    private void btnBuscarTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarTodasActionPerformed
+       List<Cidade> lista;
+        try {
+            lista = controller.obterTodas();
+            List<CidadeDto> cidades = CidadeDto.converter(lista);
+            DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+            modelo.setNumRows(0);
+
+            for (CidadeDto cidade : cidades) {
+                modelo.addRow(new Object[]{
+                    cidade.getId(),
+                    cidade.getNome(),
+                    cidade.getGastos(),
+                    cidade.getClima(),
+                    cidade.getPopulacao(),
+                    cidade.getSigla()                   
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar o Cidades!");
+        }
+    }//GEN-LAST:event_btnBuscarTodasActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        try {
+            Long id = Long.parseLong(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+            controller.excluirCidade(id);
+            JOptionPane.showMessageDialog(null, "Dados Excluidos com sucesso");
+
+            } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Excluir o cidade!");
+        }
+    }//GEN-LAST:event_btnRemoverActionPerformed
 
     
     /**
@@ -281,8 +354,11 @@ public class BuscarCidade extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarTodas;
     private javax.swing.JButton btnClima;
     private javax.swing.JButton btnNome;
+    private javax.swing.JButton btnRemover;
+    private javax.swing.JButton btnSelecionar;
     private javax.swing.JButton btnSigla;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

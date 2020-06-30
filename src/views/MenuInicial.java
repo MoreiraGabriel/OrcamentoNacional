@@ -46,8 +46,18 @@ public class MenuInicial extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jB_Cidade.setText("Cidade");
+        jB_Cidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB_CidadeActionPerformed(evt);
+            }
+        });
 
         jB_Estado.setText("Estado");
+        jB_Estado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB_EstadoActionPerformed(evt);
+            }
+        });
 
         jL_TítuloMenu.setFont(new java.awt.Font("Tele-GroteskFet", 2, 48)); // NOI18N
         jL_TítuloMenu.setText("Menu");
@@ -65,15 +75,15 @@ public class MenuInicial extends javax.swing.JFrame {
                         .addComponent(jB_Cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(102, 102, 102))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jL_TítuloMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(164, 164, 164))))
+                        .addComponent(jL_TítuloMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(162, 162, 162))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(54, 54, 54)
                 .addComponent(jL_TítuloMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jB_Cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jB_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -82,6 +92,14 @@ public class MenuInicial extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jB_CidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_CidadeActionPerformed
+        new Cidades(null,true).setVisible(true);
+    }//GEN-LAST:event_jB_CidadeActionPerformed
+
+    private void jB_EstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB_EstadoActionPerformed
+        new Estados(null,true).setVisible(true);
+    }//GEN-LAST:event_jB_EstadoActionPerformed
 
     /**
      * @param args the command line arguments

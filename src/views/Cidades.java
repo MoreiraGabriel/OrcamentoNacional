@@ -9,12 +9,15 @@ package views;
  *
  * @author Diego Pazos
  */
-public class Cidades extends javax.swing.JFrame {
+public class Cidades extends javax.swing.JDialog {
 
     /**
      * Creates new form Estados
      */
-    public Cidades() {
+
+    Cidades(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        this.setLocationRelativeTo(null);
         initComponents();
     }
 
@@ -115,7 +118,14 @@ public class Cidades extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cidades().setVisible(true);
+                Cidades dialog = new Cidades(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

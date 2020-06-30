@@ -17,20 +17,23 @@ public class CidadeDto {
     
     private Long id;
     private String nome;
+    private Float gastos;
     private String clima;
+    private Integer populacao;
     private String sigla;
 
     public CidadeDto(Cidade cidade) {
         this.id = cidade.getId();
         this.nome = cidade.getNome();
+        this.gastos = cidade.getGastos();
         this.clima = cidade.getClima();
+        this.populacao = cidade.getPopulacao();
         this.sigla = cidade.getEstado().getSigla();
     }
     
     public static List<CidadeDto> converter(List<Cidade> cidades) {	
         return cidades.stream().map(CidadeDto::new).collect(Collectors.toList());
     }
-
 
     public Long getId() {
         return id;
@@ -48,12 +51,28 @@ public class CidadeDto {
         this.nome = nome;
     }
 
+    public Float getGastos() {
+        return gastos;
+    }
+
+    public void setGastos(Float gastos) {
+        this.gastos = gastos;
+    }
+
     public String getClima() {
         return clima;
     }
 
     public void setClima(String clima) {
         this.clima = clima;
+    }
+
+    public Integer getPopulacao() {
+        return populacao;
+    }
+
+    public void setPopulacao(Integer populacao) {
+        this.populacao = populacao;
     }
 
     public String getSigla() {
@@ -66,6 +85,6 @@ public class CidadeDto {
 
     @Override
     public String toString() {
-        return "CidadeDto{" + "id=" + id + ", nome=" + nome + ", clima=" + clima + ", sigla=" + sigla + '}';
-    }
+        return "CidadeDto{" + "id=" + id + ", nome=" + nome + ", gastos=" + gastos + ", clima=" + clima + ", populacao=" + populacao + ", sigla=" + sigla + '}';
+    }  
 }
