@@ -5,6 +5,7 @@
  */
 package dao;
 
+import dto.EstadoDto;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -106,7 +107,17 @@ public class EstadoDao {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         
-        List<Estado> lista = em.createQuery("Select a From Estado a Order By Id", Estado.class).getResultList();
+        List<Estado> lista = null;
+        
+        try {
+            lista = em.createQuery("Select a From Estado a Order By Id", Estado.class).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+       
         return lista;
     }
     

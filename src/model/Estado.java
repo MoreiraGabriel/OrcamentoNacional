@@ -5,8 +5,10 @@
  */
 package model;
 
+import dto.EstadoDto;
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,6 +48,16 @@ public class Estado implements Serializable {
         this.orcamentoTotal = orcamentoTotal;
         this.gastosTotais = gastosTotais;
         this.cidades = cidades;
+    }
+    
+    public Estado(EstadoDto dto){
+        this.id = dto.getId();
+        this.nome = dto.getNome();
+        this.sigla = dto.getSigla();
+    }
+    
+    public static List<Estado> converter(List<EstadoDto> lista){        
+        return lista.stream().map(Estado::new).collect(Collectors.toList());
     }
 
     public Long getId() {

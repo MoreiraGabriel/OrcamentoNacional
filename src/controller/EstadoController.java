@@ -6,6 +6,7 @@
 package controller;
 
 import dao.EstadoDao;
+import dto.EstadoDto;
 import java.util.List;
 import model.Estado;
 

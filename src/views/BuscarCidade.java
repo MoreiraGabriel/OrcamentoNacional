@@ -6,12 +6,17 @@
 package views;
 
 import controller.CidadeController;
+import controller.EstadoController;
 import dto.CidadeDto;
+import dto.EstadoDto;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Cidade;
+import model.Estado;
 
 /**
  *
@@ -20,6 +25,8 @@ import model.Cidade;
 public class BuscarCidade extends javax.swing.JDialog {
     
     CidadeController controller = new CidadeController();
+    EstadoController estadoController = new EstadoController();
+    List<EstadoDto> lista = EstadoDto.converter(estadoController.obterTodos());
 
     /**
      * Creates new form BuscarCidade
@@ -45,9 +52,8 @@ public class BuscarCidade extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
-        txtSigla = new javax.swing.JTextField();
-        txtClima = new javax.swing.JTextField();
+        tfNome = new javax.swing.JTextField();
+        tfGastos = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnSigla = new javax.swing.JButton();
         btnNome = new javax.swing.JButton();
@@ -57,6 +63,14 @@ public class BuscarCidade extends javax.swing.JDialog {
         btnBuscarTodas = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
         btnSelecionar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        tfPopulacao = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        tfId = new javax.swing.JTextField();
+        btnLimpar = new javax.swing.JButton();
+        jcbEstado = new javax.swing.JComboBox<>();
+        jcbClima = new javax.swing.JComboBox<>();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,13 +86,18 @@ public class BuscarCidade extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tele-GroteskFet", 3, 36)); // NOI18N
-        jLabel1.setText("Buscar Cidade");
+        jLabel1.setText("Cidades");
 
         jLabel2.setText("Nome:");
 
-        jLabel3.setText("Sigla Estado:");
+        jLabel3.setText("Estado:");
 
         jLabel4.setText("Clima:");
 
@@ -107,19 +126,18 @@ public class BuscarCidade extends javax.swing.JDialog {
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Id", "Nome", "Gastos", "Clima", "População", "Sigla"
             }
         ));
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tabela);
-        if (tabela.getColumnModel().getColumnCount() > 0) {
-            tabela.getColumnModel().getColumn(3).setResizable(false);
-        }
 
         btnBuscarTodas.setText("Buscar Todas");
         btnBuscarTodas.addActionListener(new java.awt.event.ActionListener() {
@@ -135,10 +153,38 @@ public class BuscarCidade extends javax.swing.JDialog {
             }
         });
 
-        btnSelecionar.setText("Selecionar");
+        btnSelecionar.setText("Atualizar");
         btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSelecionarActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Gastos:");
+
+        jLabel7.setText("População:");
+
+        jLabel8.setText("Id:");
+
+        tfId.setEditable(false);
+
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+
+        jcbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbEstadoActionPerformed(evt);
+            }
+        });
+
+        jcbClima.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Equatorial", "Tropical", "Subtropical", "Semiárido" }));
+        jcbClima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbClimaActionPerformed(evt);
             }
         });
 
@@ -147,82 +193,110 @@ public class BuscarCidade extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtClima, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                                            .addComponent(txtNome)
-                                            .addComponent(txtSigla))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnSigla)
-                                            .addComponent(btnClima)
-                                            .addComponent(btnNome)))
-                                    .addComponent(btnBuscarTodas, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)))
-                            .addComponent(jLabel5)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(btnRemover)
-                        .addGap(79, 79, 79)
-                        .addComponent(btnSelecionar)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                                    .addComponent(tfNome)
+                                    .addComponent(tfGastos, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tfId, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addGap(5, 5, 5)
+                                            .addComponent(btnBuscarTodas, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jcbEstado, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(tfPopulacao, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jcbClima, 0, 217, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnNome)
+                                    .addComponent(btnClima)
+                                    .addComponent(btnSigla))
+                                .addGap(92, 92, 92)))))
+                .addGap(42, 42, 42))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addComponent(btnRemover)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLimpar)
+                .addGap(51, 51, 51)
+                .addComponent(btnSelecionar)
+                .addGap(112, 112, 112))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(15, 15, 15)
                 .addComponent(jLabel1)
-                .addGap(16, 16, 16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNome))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNome)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(tfGastos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jcbClima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnClima)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfPopulacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtSigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSigla))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtClima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClima))
-                .addGap(18, 18, 18)
+                    .addComponent(btnSigla)
+                    .addComponent(jcbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addComponent(btnBuscarTodas)
-                .addGap(27, 27, 27)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRemover)
-                    .addComponent(btnSelecionar))
-                .addContainerGap(77, Short.MAX_VALUE))
+                    .addComponent(btnSelecionar)
+                    .addComponent(btnLimpar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSiglaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiglaActionPerformed
-        String siglaEstado = txtSigla.getText().toString();
-        List<Cidade> lista;
+        EstadoDto dto = (EstadoDto)jcbEstado.getSelectedItem();
+        List<Cidade> listaCidades;
         try {
-            lista = controller.obterPorSiglaEstado(siglaEstado);
-            List<CidadeDto> cidades = CidadeDto.converter(lista);
+            listaCidades = controller.obterPorSiglaEstado(dto.getSigla());
+            List<CidadeDto> cidades = CidadeDto.converter(listaCidades);
             DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
             modelo.setNumRows(0);
             
@@ -243,7 +317,7 @@ public class BuscarCidade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSiglaActionPerformed
     
     private void btnNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNomeActionPerformed
-        String nomeCidade = txtNome.getText().toString();
+        String nomeCidade = tfNome.getText();
         Cidade cidade;
         try {
             cidade = controller.obterPorNome(nomeCidade);
@@ -267,7 +341,7 @@ public class BuscarCidade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnNomeActionPerformed
 
     private void btnClimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClimaActionPerformed
-        String clima = txtClima.getText().toString();
+        String clima = jcbClima.getSelectedItem().toString();
         List<Cidade> lista;
         try {
             lista = controller.obterCidadePorClima(clima);
@@ -291,7 +365,22 @@ public class BuscarCidade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClimaActionPerformed
 
     private void btnBuscarTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarTodasActionPerformed
-       List<Cidade> lista;
+      listar();
+    }//GEN-LAST:event_btnBuscarTodasActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        try {
+            Long id = Long.parseLong(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+            controller.excluirCidade(id);
+            JOptionPane.showMessageDialog(null, "Dados Excluidos com sucesso");
+
+            } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Excluir o cidade!");
+        }
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void listar(){
+        List<Cidade> lista;
         try {
             lista = controller.obterTodas();
             List<CidadeDto> cidades = CidadeDto.converter(lista);
@@ -311,24 +400,69 @@ public class BuscarCidade extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao listar o Cidades!");
         }
-    }//GEN-LAST:event_btnBuscarTodasActionPerformed
-
-    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        try {
-            Long id = Long.parseLong(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
-            controller.excluirCidade(id);
-            JOptionPane.showMessageDialog(null, "Dados Excluidos com sucesso");
-
-            } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Excluir o cidade!");
-        }
-    }//GEN-LAST:event_btnRemoverActionPerformed
-
+    }
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
-       new CidadeEditar(null,true).setVisible(true);
+        Cidade cidade = new Cidade();
+        cidade.setNome(tfNome.getText());
+        cidade.setClima(jcbClima.getSelectedItem().toString());
+        cidade.setGastos(Float.parseFloat(tfGastos.getText()));
+        cidade.setPopulacao(Integer.valueOf(tfPopulacao.getText()));
+        Estado estado = new Estado((EstadoDto)jcbEstado.getSelectedItem());
+        cidade.setEstado(estado);
+        
+        if(tfId.getText().isEmpty()){
+            controller.cadastrarCidade(cidade);            
+        }else{
+            Long id = Long.parseLong(tfId.getText());
+            cidade.setId(id);
+            controller.atualizarCidade(cidade);
+        }
+         
+        listar();
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
-    
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        tfId.setText("");
+        tfNome.setText("");
+        tfGastos.setText("");
+        tfPopulacao.setText("");
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        listar();
+        listarEstadosComboBox();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void jcbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEstadoActionPerformed
+     
+    }//GEN-LAST:event_jcbEstadoActionPerformed
+
+    private void jcbClimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbClimaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbClimaActionPerformed
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+       tfId.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+       tfNome.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
+       tfGastos.setText(tabela.getValueAt(tabela.getSelectedRow(), 2).toString());
+       jcbClima.setSelectedItem(tabela.getValueAt(tabela.getSelectedRow(), 3).toString());
+       tfPopulacao.setText(tabela.getValueAt(tabela.getSelectedRow(), 4).toString());
+       
+       String sigla = tabela.getValueAt(tabela.getSelectedRow(), 5).toString();
+       
+       Stream<EstadoDto> estado = lista.stream().filter(c -> c.getSigla().equals(sigla));
+       Optional<EstadoDto> dto = estado.findFirst();
+       System.out.println(dto);
+       if(dto.get().getSigla().equals(sigla)){
+           jcbEstado.setSelectedItem(dto.get());
+       }
+    }//GEN-LAST:event_tabelaMouseClicked
+
+    private void listarEstadosComboBox(){        
+        lista.forEach((estadoDto) -> {
+            jcbEstado.addItem(estadoDto);
+        });
+    }
     /**
      * @param args the command line arguments
      */
@@ -374,6 +508,7 @@ public class BuscarCidade extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarTodas;
     private javax.swing.JButton btnClima;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnNome;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnSelecionar;
@@ -383,12 +518,18 @@ public class BuscarCidade extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<String> jcbClima;
+    private javax.swing.JComboBox<EstadoDto> jcbEstado;
     private javax.swing.JTable tabela;
-    private javax.swing.JTextField txtClima;
-    private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtSigla;
+    private javax.swing.JTextField tfGastos;
+    private javax.swing.JTextField tfId;
+    private javax.swing.JTextField tfNome;
+    private javax.swing.JTextField tfPopulacao;
     // End of variables declaration//GEN-END:variables
 }

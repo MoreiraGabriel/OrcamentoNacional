@@ -11,6 +11,7 @@ import model.Estado;
 import controller.CidadeController;
 import controller.EstadoController;
 import dto.CidadeDto;
+import dto.EstadoDto;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,7 +25,7 @@ public class OrcamentoNacional {
      */
     public static void main(String[] args) {
 //        CidadeController controllerCidade = new CidadeController();
-//        EstadoController controllerEstado = new EstadoController();
+        EstadoController controllerEstado = new EstadoController();
 //
 //        Estado estado = new Estado();  
 //        estado.setId(1L);
@@ -70,6 +71,9 @@ public class OrcamentoNacional {
 //        List<Cidade> lista = controllerCidade.obterPorSiglaEstado("MG");
 //        List<CidadeDto> cidades = CidadeDto.converter(lista);
 //
+//        System.out.println(lista);
+
+//        List<EstadoDto> lista = EstadoDto.converter(controllerEstado.obterTodos());
 //        System.out.println(lista);
     }
     
