@@ -7,7 +7,7 @@ package views;
 
 /**
  *
- * @author Diego Pazos
+ * @author Diego Pazos E Gabriel Moreira
  */
 public class MenuInicial extends javax.swing.JFrame {
 

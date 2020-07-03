@@ -50,60 +50,52 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jL_OrcTotalEstado" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jL_GastosTotaisEstado" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jL_DfEstado" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jL_SiglaEstado" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="cbDf" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfOrcamento" pref="182" max="32767" attributes="0"/>
+                              <Component id="tfGastos" alignment="0" max="32767" attributes="0"/>
+                              <Component id="tfSigla" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                          <Component id="btnBuscarDevedores" min="-2" pref="161" max="-2" attributes="0"/>
+                          <EmptySpace pref="67" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnNome" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnBuscarTodos" alignment="1" min="-2" pref="202" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="104" pref="104" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel1" min="-2" pref="161" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="tfId" max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="279" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="104" pref="104" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="tfId" max="32767" attributes="0"/>
-                                          <EmptySpace min="-2" pref="279" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="tfNome" min="-2" pref="182" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jL_OrcTotalEstado" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jL_GastosTotaisEstado" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jL_DfEstado" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jL_SiglaEstado" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="cbDf" min="-2" max="-2" attributes="0"/>
-                                      <Component id="tfOrcamento" pref="182" max="32767" attributes="0"/>
-                                      <Component id="tfGastos" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="tfSigla" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                                  <Component id="btnBuscarDevedores" min="-2" pref="161" max="-2" attributes="0"/>
-                                  <EmptySpace pref="67" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="btnNome" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnBuscarTodos" alignment="1" min="-2" pref="202" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
+                                  <Component id="tfNome" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="448" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -131,7 +123,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="14" max="32767" attributes="0"/>
+                      <EmptySpace pref="37" max="32767" attributes="0"/>
                       <Component id="tfId" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -192,7 +184,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tele-GroteskFet" size="36" style="3"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Buscar Estado"/>
+        <Property name="text" type="java.lang.String" value="Estados"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
     </Component>

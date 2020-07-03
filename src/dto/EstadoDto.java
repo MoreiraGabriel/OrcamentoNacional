@@ -57,6 +57,6 @@ public class EstadoDto {
 
     @Override
     public String toString() {
-        return "id=" + id + ", nome=" + nome + ", sigla=" + sigla;
+        return "(" +sigla + ") - " + nome;
     }
 }

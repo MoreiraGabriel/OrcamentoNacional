@@ -83,7 +83,6 @@ public class CidadeController {
         List<Cidade> cidades = dao.findCidadePorEstado(cidade.getEstado().getId());
         Stream<Cidade> city = cidades.stream().filter(c -> c.getNome().equals(cidade.getNome()));
         Optional<Cidade> c = city.findFirst();
-        System.out.println(c);
         return c;
     }
 }

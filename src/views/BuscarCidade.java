@@ -26,7 +26,6 @@ public class BuscarCidade extends javax.swing.JDialog {
     
     CidadeController controller = new CidadeController();
     EstadoController estadoController = new EstadoController();
-    List<EstadoDto> lista = EstadoDto.converter(estadoController.obterTodos());
 
     /**
      * Creates new form BuscarCidade
@@ -449,16 +448,20 @@ public class BuscarCidade extends javax.swing.JDialog {
        tfPopulacao.setText(tabela.getValueAt(tabela.getSelectedRow(), 4).toString());
        
        String sigla = tabela.getValueAt(tabela.getSelectedRow(), 5).toString();
-       
+       List<EstadoDto> lista = listarEstadoDto();
        Stream<EstadoDto> estado = lista.stream().filter(c -> c.getSigla().equals(sigla));
        Optional<EstadoDto> dto = estado.findFirst();
-       System.out.println(dto);
+
        if(dto.get().getSigla().equals(sigla)){
            jcbEstado.setSelectedItem(dto.get());
        }
     }//GEN-LAST:event_tabelaMouseClicked
 
-    private void listarEstadosComboBox(){        
+    private List<EstadoDto> listarEstadoDto(){
+        return EstadoDto.converter(estadoController.obterTodos());
+    }
+    private void listarEstadosComboBox(){
+       List<EstadoDto> lista = listarEstadoDto();
         lista.forEach((estadoDto) -> {
             jcbEstado.addItem(estadoDto);
         });
